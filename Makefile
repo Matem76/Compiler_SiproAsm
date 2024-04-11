@@ -2,7 +2,7 @@ SHELL=/bin/sh
 LEX=flex
 YACC=bison
 CC=gcc
-CFLAGS=-g -std=c11 -pedantic -Wall
+CFLAGS=-g -O2 -std=c11 -pedantic -Wall
 LDFLAGS=
 # --nounput: ne g�n�re pas la fonction yyunput() inutile
 # --DYY_NO_INPUT: ne prend pas en compte la fonction input() inutile
@@ -11,7 +11,7 @@ LEXOPTS=-D_POSIX_SOURCE -DYY_NO_INPUT --nounput
 YACCOPTS=
 
 # REMPLACER ICI "fichier" PAR LE NOM DE VOS FICHIERS
-PROG=compilation
+PROG=ex1
 
 # PROG ASM input file with .a extension
 PROG_ASM=expr
@@ -22,8 +22,17 @@ all: comp asm
 
 comp: $(PROG)
 
-$(PROG): lex.yy.o $(PROG).tab.o
+$(PROG): lex.yy.o $(PROG).tab.o variables.o print_functions.o types.o
 	$(CC) $+ -o $@ $(LDFLAGS)
+
+variables.o: variables.c
+	$(CC) $(CFLAGS) $< -c
+
+print_functions.o: print_functions.c
+	$(CC) $(CFLAGS) $< -c
+
+types.o: types.c
+	$(CC) $(CFLAGS) $< -c
 
 lex.yy.c: $(PROG).l $(PROG).tab.h
 	$(LEX) $(LEXOPTS) $<
@@ -42,5 +51,5 @@ asm:
 	asipro $(PROG_ASM).asm $(PROG_ASM)
 
 clean:
-	-rm $(PROG) *.o lex.yy.* $(PROG).tab.* *.err *.output *.out *.dot *.vcg *.asm $(PROG_ASM)
+	-rm $(PROG) *.o lex.yy.* $(PROG).tab.* *.err *.output *.out *.dot *.vcg *.asm $(PROG_ASM) newcore*
 

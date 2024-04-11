@@ -1,0 +1,35 @@
+ALgoSIPro Perrot Killiann & Espada Mora Matthieu
+
+    Réalisation d'un compilateur développé en utilisant Bison et flex, qui prend en entrée des fichiers sources contenant des algorithmes écrits dans le format ALgo et produit un résultat
+exécuté sur la sortie standard.
+
+    Exemple d'utilisation:
+        \begin{algo}{MonAlgo}{a,b}
+        \SET{c}{a+b}
+        \RETURN{c}
+        \end{algo}
+        \CALL{MonAlgo}{5,2} //affiche 7
+
+
+    Structures de données utilisées:
+        Une Liste chainée,ou on empile en queue. Chaque structure possède des fonctions d'inisialisation, de libération, d'ajouts.Le controlleur de
+    la liste est un  tid. On possède aussi un tableau  qui contient des pointeurs sur des lid, le nom de ce tableau est tab_lid.
+
+    Fonctionnalités prises en charges:
+        Les fonctionnalités prises en charges sont le \SET, \IF (avec ou sans \ELSE), \DOWHILE, \DOFORI, \CALL et le \RETURN. Les fonctions peuvent être récursives et toutes ces
+    fonctionnalités peuvent être imbriquées les unes dans les autres et fonctionnent pour booléens et entiers.
+
+    Guide d'utilisation:
+        -Notre makefile permet de faire directement ./$(PROG) < $(PROG_ASM).a > $(PROG_ASM).asm
+    asipro $(PROG_ASM).asm $(PROG_ASM), il suffit donc avant de faire make de remplir le fichier expr.a avec le code ALgo que vous voulez compiler, ensuite de faire make et enfin de faire sipro expr
+        -Vous trouverez dans le dossier test des exemples de fichiers ALgo que vous pouvez compiler dans le expr.a
+
+
+    Limitations connues:
+        -le tableau n'est pas simplifié dans le cas où on ne devrait pas rentrer dans la condition de l'if c'est-à-dire si on a un set dans l'if
+    et que la condition est fausse, le set est effectué avec 0 comme valeur dans la pile.
+        -On n'a pas d'optimisation syntaxique hormis la vérification des arguments que ce soit le bon nombre dans le call et dans l'appel de la fonction respective.
+
+
+
+

@@ -1,0 +1,17 @@
+\begin{algo}{testeur}{c,d,e}
+    \SET{x}{c + 0}
+    \DOWHILE{d < 4}
+        \SET{x}{x+e}
+        \SET{d}{d+1}
+    \OD
+    \RETURN{x}
+\end{algo}
+\begin{algo}{test}{a,b}
+    \IF{b == 0}
+      \RETURN{\CALL{testeur}{5,2,5}}
+    \ELSE
+      \RETURN{5}
+    \FI 
+  \end{algo}
+\CALL{test}{7,0}
+
